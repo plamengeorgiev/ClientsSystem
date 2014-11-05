@@ -1,0 +1,14 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EditPrices.master.cs" Inherits="ClientSystem.EditPrices" %>
+
+<asp:Content ID="EditPricesContent" ContentPlaceHolderID="MainContent" runat="server">
+    <h2>Edit Prices</h2>
+    <ul class="list-inline">
+        <li><a runat="server" href="~/CarrierBrands">Carrier Brands</a></li>
+        <li><a runat="server" href="~/CarrierPrints">Carrier Prints</a></li>
+        <li><a runat="server" href="~/CarrierRecords">Carrier Records</a></li>
+        <li><a runat="server" href="~/CarrierAccessories">Carrier Accessories</a></li>
+        <li><a runat="server" href="~/CarrierCovers">Carrier Covers</a></li>
+        <li><a runat="server" href="~/CarrierBoxes">Carrier Boxes</a></li>
+    </ul>
+    <asp:ContentPlaceHolder ID="ChildContent" runat="server" />
+</asp:Content>
