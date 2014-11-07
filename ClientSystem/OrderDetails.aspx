@@ -141,7 +141,6 @@
                 </tbody>
             </table>
             <asp:Button ID="ButtonEdit" runat="server" CommandName="Edit" Text="Edit" CssClass="btn btn-default no-print" />
-            <asp:Button ID="ButtonDelete" runat="server" CommandName="Delete" Text="Delete" CssClass="btn btn-default  no-print"/>
         </ItemTemplate>
         <EditItemTemplate>
             <table class="table table-bordered table-condensed table-print">

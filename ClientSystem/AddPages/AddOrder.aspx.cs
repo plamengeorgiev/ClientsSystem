@@ -12,6 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace ClientSystem
 {
+    [System.Web.Script.Services.ScriptService]
     public partial class AddOrder : System.Web.UI.Page
     {
         ClientSystemContext dbContext = new ClientSystem.Models.ClientSystemContext();
@@ -60,8 +61,6 @@ namespace ClientSystem
         public IQueryable<CarrierBrand> GetCarrierBrands()
         {
             return dbData.GetCarrierBrands();
-            //IQueryable<CarrierBrand> query = dbContext.CarrierBrands;
-            //return query;
         }
         public IQueryable<CarrierRecord> GetCarrierRecords()
         {
@@ -99,7 +98,7 @@ namespace ClientSystem
             item.NumberOfCopies = int.Parse(NumberOfCopiesTextBox.Text);
             item.Carrier = DropDownListCarrierType.SelectedValue == "0" ? CarrierType.CD : CarrierType.DVD;
 
-            
+
             item.CarrierBrandId = GetIndex(DropDownListCarrierBrands.SelectedValue);
             item.CarrierRecordId = GetIndex(DropDownListCarrierRecords.SelectedValue);
             item.CarrierPrintId = GetIndex(DropDownListCarrierPrints.SelectedValue);
@@ -229,18 +228,18 @@ namespace ClientSystem
 
                 CalculateSingleDiscPrice(null, new EventArgs());
             }
-            
+
         }
 
         protected void CalculateSingleDiscPrice(object sender, EventArgs e)
         {
             var singleDisc = 0m;
-            singleDisc += Convert.ToDecimal(TextBoxCarrierBrand.Text);
-            singleDisc += Convert.ToDecimal(TextBoxCarrierRecord.Text);
-            singleDisc += Convert.ToDecimal(TextBoxCarrierPrint.Text);
-            singleDisc += Convert.ToDecimal(TextBoxCarrierBox.Text);
-            singleDisc += Convert.ToDecimal(TextBoxCarrierCover.Text);
-            singleDisc += Convert.ToDecimal(TextBoxCarrierAccessory.Text);
+            singleDisc += GetPrice(TextBoxCarrierBrand.Text);
+            singleDisc += GetPrice(TextBoxCarrierRecord.Text);
+            singleDisc += GetPrice(TextBoxCarrierPrint.Text);
+            singleDisc += GetPrice(TextBoxCarrierBox.Text);
+            singleDisc += GetPrice(TextBoxCarrierCover.Text);
+            singleDisc += GetPrice(TextBoxCarrierAccessory.Text);
 
             SingleDiscPrice.Text = singleDisc.ToString();
             SingleDiscPrice.Visible = true;
@@ -252,6 +251,18 @@ namespace ClientSystem
         {
             TotalPrice.Text = (Convert.ToDecimal(SingleDiscPrice.Text) * Convert.ToInt32(NumberOfCopiesTextBox.Text)).ToString();
             TotalPrice.Visible = true;
+        }
+
+        protected decimal GetPrice(string value)
+        {
+            decimal price;
+
+            bool result = decimal.TryParse(value, out price);
+            if (result)
+            {
+                return price;
+            }
+            return 0;
         }
 
         protected int? GetIndex(string value)

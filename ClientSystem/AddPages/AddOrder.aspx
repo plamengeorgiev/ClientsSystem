@@ -1,17 +1,19 @@
 ﻿<%@ Page Title="Add New Order" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
     CodeBehind="AddOrder.aspx.cs" Inherits="ClientSystem.AddOrder" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <asp:Content ID="ContentAddOrder" ContentPlaceHolderID="MainContent" runat="server">
     <asp:ValidationSummary runat="server" ShowModelStateErrors="true" />
 
     <asp:RequiredFieldValidator runat="server" ControlToValidate="FirmNameTextBox"
         ErrorMessage="Please enter Client Firm Name" Display="None" />
     <asp:RequiredFieldValidator runat="server" ControlToValidate="NumberOfCopiesTextBox"
-        ErrorMessage="Please enter number of copies" Display="None"/>
-    <asp:RequiredFieldValidator runat="server" ControlToValidate="SingleDiscPrice"
-        ErrorMessage="Please enter Single Disc Price" Display="None"/>
+        ErrorMessage="Please enter number of copies" Display="None" />
+    <%--    <asp:RequiredFieldValidator runat="server" ControlToValidate="SingleDiscPrice"
+        ErrorMessage="Please enter Single Disc Price" Display="None" />
     <asp:RequiredFieldValidator runat="server" ControlToValidate="TotalPrice"
-        ErrorMessage="Please enter Total Price" Display="None"/>  
+        ErrorMessage="Please enter Total Price" Display="None" />--%>
 
     <hr />
     <div class="container">
@@ -19,6 +21,13 @@
             <span class="col-sm-2 control-label">Client Firm:</span>
             <asp:TextBox ID="FirmNameTextBox" runat="server" CssClass="form-control" AutoPostBack="True"></asp:TextBox>
         </div>
+        <asp:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
+            ServiceMethod="GetFirmNames"
+            ServicePath="~/AutoComplete.asmx"
+            MinimumPrefixLength="2"
+            CompletionInterval="100" EnableCaching="false" CompletionSetCount="10"
+            TargetControlID="FirmNameTextBox" FirstRowSelected="false">
+        </asp:AutoCompleteExtender>
 
         <div class="row">
             <span class="col-sm-2 control-label">Client Name:</span>
@@ -215,14 +224,18 @@
             RenderOuterTable="false" OnItemInserted="addOrderForm_ItemInserted">
             <InsertItemTemplate>
                 <div class="row">
-                    <span class="col-sm-2 control-label">Disc Name:</span>
-                    <asp:TextBox runat="server" ID="DiscNameTextBox" Text=" <%#: BindItem.DiscName %>" CssClass="form-control">                           
-                    </asp:TextBox>
+                    <span class="col-sm-2 control-label">Varnishing:</span>
+                    <asp:CheckBox runat="server" ID="CheckboxVarnishing" Checked="<%# BindItem.Varnishing %>"></asp:CheckBox>
+                </div>
+                <div class="row">
+                    <span class="col-sm-2 control-label">Delivery:</span>
+                    <asp:CheckBox runat="server" ID="CheckBoxDelivery" Checked="<%# BindItem.Delivery %>"></asp:CheckBox>
                 </div>
 
                 <div class="row">
-                    <span class="col-sm-2 control-label">Varnishing:</span>
-                    <asp:CheckBox runat="server" ID="CheckboxVarnishing" Checked="<%# BindItem.Varnishing %>"></asp:CheckBox>
+                    <span class="col-sm-2 control-label">Disc Name:</span>
+                    <asp:TextBox runat="server" ID="DiscNameTextBox" Text=" <%#: BindItem.DiscName %>" CssClass="form-control">                           
+                    </asp:TextBox>
                 </div>
 
                 <div class="row">
@@ -232,10 +245,6 @@
                     </asp:TextBox>
                 </div>
 
-                <div class="row">
-                    <span class="col-sm-2 control-label">Delivery:</span>
-                    <asp:CheckBox runat="server" ID="CheckBoxDelivery" Checked="<%# BindItem.Delivery %>"></asp:CheckBox>
-                </div>
 
                 <div class="row">
                     <span class="col-sm-2 control-label">Payment Type:</span>

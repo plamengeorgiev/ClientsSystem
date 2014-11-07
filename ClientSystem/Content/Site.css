@@ -23,16 +23,15 @@ textarea {
         border-collapse: collapse !important;
     }
     .table-print td:nth-child(1) {
-        width:300px !important;
+        width:40% !important;
         border-collapse: collapse !important;  
     }
    .table-print td:nth-child(2){
-        width:450px !important;
+        width:60% !important;
         border-collapse: collapse !important; 
     }
     .table-print td:nth-child(3){
-        width:450px !important;
-        border-collapse: collapse !important; 
+        display:none;
     }
 
 
@@ -56,15 +55,16 @@ textarea {
         border-collapse: collapse !important;
     }
     .table-print td:nth-child(1) {
-        width:300px !important;
+        width:30% !important;
         border-collapse: collapse !important;  
     }
     .table-print td:nth-child(2){
-        width:450px !important;
+        width:40% !important;
         border-collapse: collapse !important; 
     }
     .table-print td:nth-child(3){
-        width:450px !important;
+        display:table-cell;
+        width:30% !important;
         border-collapse: collapse !important; 
     }
 }
