@@ -96,7 +96,7 @@ namespace ClientSystem
             item.DeliveryAddress = TextBoxDeliverAddress.Text;
             item.InvoiceName = TextBoxInvoiceName.Text;
             item.NumberOfCopies = int.Parse(NumberOfCopiesTextBox.Text);
-            item.Carrier = DropDownListCarrierType.SelectedValue == "0" ? CarrierType.CD : CarrierType.DVD;
+            item.Carrier = DropDownListCarrierType.SelectedValue == "CD" ? CarrierType.CD : CarrierType.DVD;
 
 
             item.CarrierBrandId = GetIndex(DropDownListCarrierBrands.SelectedValue);
